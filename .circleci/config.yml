@@ -28,7 +28,7 @@ jobs:
           command: echo "$DOCKERHUB_PASSWORD"
       - run:
           name:  Dockerhub Login
-          command: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USER" --password-stdin
+          command: docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
       # - run:
       #     name: Pushing Image to Dockerhub
       #     command: docker push iwizard1/simpl

@@ -35,17 +35,17 @@ jobs:
       - run:
           name: Tag Image to DockerHub twin
           command: |
-            docker tag udagram-api-feed iwizard1/udagram-api-feed:v2
+            docker tag udagram-api-feed iwizard1/udagram-api-feed:v1
             docker tag udagram-api-user iwizard1/udagram-api-user:v1
             docker tag udagram-frontend iwizard1/udagram-frontend:v1
-            docker tag udagram-reverseproxy iwizard1/udagram-reverseproxy:v1
+            docker tag reverseproxy iwizard1/reverseproxy:v1
       - run:
           name: Pushing Image to Dockerhub
           command: |
             docker push iwizard1/udagram-api-feed:v2
             docker push iwizard1/udagram-api-user:v1
             docker push iwizard1/udagram-frontend:v1
-            docker push iwizard1/udagram-reverseproxy:v1
+            docker push iwizard1/reverseproxy:v1
 workflows:
   build:
     jobs:

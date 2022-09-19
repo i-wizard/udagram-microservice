@@ -16,7 +16,7 @@ jobs:
     docker:
       - image: cimg/node:17.2.0
         auth:
-          username: mydockerhub-user
+          username: iwizard1
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout

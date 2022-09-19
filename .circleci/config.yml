@@ -1,0 +1,66 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
+version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  node: circleci/node@4.7
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+# workflows:
+#   build-and-deploy: # This is the name of the workflow, feel free to change it to better match your workflow.
+#     # Inside the workflow, you define the jobs you want to run.
+jobs:
+  build:
+    docker:
+      - image: cimg/node:17.2.0
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: Testing workflow
+          command: echo "Just testing the workflow"
+      - run:
+          name: Printing Environmental Variables
+          command: echo $DOCKERHUB_PASSWORD
+workflows:
+  build:
+    jobs:
+      - build:
+          context: udagram-context
+      # - node/t est:
+      #     # This is the node version to use for the `cimg/node` tag
+      #     # Relevant tags can be found on the CircleCI Developer Hub
+      #     # https://circleci.com/developer/images/image/cimg/node
+      #     version: '12.0'
+      #     # If you are using yarn, change the line below from "npm" to "yarn"
+      #     pkg-manager: npm
+
+
+# language: node_js
+# node_js:
+#   - 13
+
+# services:
+#   - docker
+
+# # Pre-testing installs
+# install:
+#   - echo "nothing needs to be installed"
+
+# # Scripts to be run such as tests
+# before_script:
+#   - echo "no tests"
+
+# script:
+#   - docker --version # print the version for logging
+#   - docker build -t simple-node .
+#   - docker tag simple-node YOUR_DOCKER_HUB/simple-node:latest
+
+# # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
+# after_success:
+#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#   - docker push YOUR_DOCKER_HUB/simple-node

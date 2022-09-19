@@ -27,8 +27,14 @@ jobs:
           name: Printing Environmental Variables
           command: echo "$DOCKERHUB_PASSWORD"
       - run:
+          name: Buiding Docker Image
+          command: docker build -t udagram-api-feed ./udagram-api-feed
+      - run:
           name:  Dockerhub Login
           command: echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run:
+          name: Tag Image to DockerHub twin
+          command: docker --tag udagram-api-feed iwizard1/udagram-api-feed:v1
       # - run:
       #     name: Pushing Image to Dockerhub
       #     command: docker push iwizard1/simpl
